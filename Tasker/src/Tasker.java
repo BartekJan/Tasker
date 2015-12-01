@@ -1,9 +1,20 @@
+import org.postgresql.ssl.DbKeyStoreSocketFactory.DbKeyStoreSocketException;
+
 
 public class Tasker {
+	
+	DatabaseManager db = new DatabaseManager();
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		
+		Tasker tasker = new Tasker();
 
+		tasker.testConnection();
+	}
+	
+	public void testConnection() {
+		System.out.println(db.testConnection());
+		System.out.println(db.getAllContent());	// NOT DONE
 	}
 
 }
