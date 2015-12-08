@@ -49,6 +49,29 @@ public class DatabaseManager {
 		return "Connection successfull";
 	}
 	
+	public String testGetContent () {
+		String table = "test";
+		Connection c = connect();
+		
+		Statement stmt;
+		try {
+			stmt = c.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM " + table);
+			
+			while (rs.next()) {
+	            int id = rs.getInt("id");
+	            String testtext = rs.getString("testtext");
+	            return(id + "\t" +testtext);
+	         }
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return "Could not get content from " + table;
+		}
+		
+        return "Could not get content from " + table;
+	}
+	
 	public String getAllContent() {
 		// NOT DONE
 		Statement stmt = null;

@@ -13,8 +13,9 @@ public class Tasker {
 	}
 	
 	public void testConnection() {
-		System.out.println(db.testConnection());
-		System.out.println(db.getAllContent());	// NOT DONE
+		System.out.println(db.testGetContent());
+		//System.out.println(db.testConnection());
+		//System.out.println(db.getAllContent());	// NOT DONE
 	}
 
 }
