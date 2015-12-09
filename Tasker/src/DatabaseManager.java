@@ -33,23 +33,68 @@ public class DatabaseManager {
 		return c;
 	}
 	
-	public String testConnection() {
-		Connection c = null;
-		try {
-	    	  
-	         Class.forName("org.postgresql.Driver");
-	         c = DriverManager.getConnection(URL,USER, PASS);
-	         
-	      } catch (Exception e) {
-	    	  
-	         //e.printStackTrace();
-	         return (e.getClass().getName()+": "+e.getMessage());
-	         
-	      }
-		return "Connection successfull";
+	private void closeConnection(Connection c, Statement stmt) {
+		try{
+	         if(stmt!=null)
+	            c.close();
+	      }catch(SQLException se){
+	      }// do nothing
 	}
 	
-	public String testGetContent () {
+	public boolean createNewMember(String fName, String sName, String email, String password) {
+		Connection c = connect();
+		Statement stmt = null;
+		
+		try {
+			stmt = c.createStatement();
+			String sql = "INSERT INTO members " + "VALUES ( 2, '" + email + "','" + fName + "','" + sName + "','" + password + "')";
+			stmt.executeUpdate(sql);
+			closeConnection(c, stmt);
+			return true;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			closeConnection(c, stmt);
+			return false;
+		}
+		
+	}
+	
+	public String getAllMembers() {
+		
+		String table = "members";
+		Connection c = connect();
+		Statement stmt = null;
+		String tableContent = "";
+		
+		try {
+			stmt = c.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM " + table);
+			
+			while (rs.next()) {
+				tableContent += rs.getInt("id");
+	            tableContent += "\t\t";
+	            tableContent += rs.getString("email");
+	            tableContent += "\t\t";
+	            tableContent += rs.getString("firstname");
+	            tableContent += "\t\t";
+	            tableContent += rs.getString("surname");
+	            tableContent += "\t\t";
+	            tableContent += rs.getString("password");
+	            tableContent += "\n";
+	         }
+			
+		} catch (SQLException e) {
+			closeConnection(c, stmt);
+			e.printStackTrace();
+			return "Could not get content from " + table;
+		}
+		
+		closeConnection(c, stmt);
+        return tableContent;
+	}
+	
+	public String testGetContent() {
 		String table = "test";
 		Connection c = connect();
 		
@@ -72,21 +117,19 @@ public class DatabaseManager {
         return "Could not get content from " + table;
 	}
 	
-	public String getAllContent() {
-		// NOT DONE
-		Statement stmt = null;
-		Connection c = connect();
-		
+	public String testConnection() {
+		Connection c = null;
 		try {
-			stmt = c.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT a, b, c FROM tasks");
-			ResultSetMetaData rsmd = rs.getMetaData();
-			String name = rsmd.getColumnName(1);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		
-		return "";
+	    	  
+	         Class.forName("org.postgresql.Driver");
+	         c = DriverManager.getConnection(URL,USER, PASS);
+	         
+	      } catch (Exception e) {
+	    	  
+	         //e.printStackTrace();
+	         return (e.getClass().getName()+": "+e.getMessage());
+	         
+	      }
+		return "Connection successfull";
 	}
 }
