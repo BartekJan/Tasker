@@ -41,6 +41,53 @@ public class DatabaseManager {
 	      }// do nothing
 	}
 	
+	
+	public boolean loginDetails(String memberEmail, String memberPassword) {
+		
+		Connection c = connect();
+		Statement stmt = null;
+		String tableContent = "";
+		
+		
+		try {
+			stmt = c.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT password FROM members WHERE email='" + memberEmail + "'");
+			
+			while (rs.next()) {
+				tableContent = rs.getString("password");
+			}
+			
+//			while (rs.next()) {
+//				tableContent += rs.getInt("id");
+//	            tableContent += "\t\t";
+//	            tableContent += rs.getString("email");
+//	            tableContent += "\t\t";
+//	            tableContent += rs.getString("firstname");
+//	            tableContent += "\t\t";
+//	            tableContent += rs.getString("surname");
+//	            tableContent += "\t\t";
+//	            tableContent += rs.getString("password");
+//	            tableContent += "\n";
+//	         }
+			
+		} catch (SQLException e) {
+			closeConnection(c, stmt);
+			e.printStackTrace();
+			return false;
+		}
+		
+		closeConnection(c, stmt);
+		
+		if (tableContent.equals(memberPassword)) {
+			return true;
+		}
+		else
+			return false;
+	}
+	
+	
+	
+	
 	public boolean createNewMember(String fName, String sName, String email, String password) {
 		Connection c = connect();
 		Statement stmt = null;
