@@ -18,6 +18,9 @@ import javax.swing.JEditorPane;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.security.PublicKey;
 
 
 public class TaskManLogin{
@@ -28,29 +31,40 @@ public class TaskManLogin{
 	private JTextField txtEmail;
 	private JLabel lblPassword;
 	private JLabel lblEmail;
+	private JLabel lblMessage;
 	private JLabel UserPicture;
+	
+	private String memberEmail = "";
+	private String memberPass = "";
+	private boolean rememberMe = false;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TaskManLogin window = new TaskManLogin();
-					window.frmTaskmanLogin.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					TaskManLogin window = new TaskManLogin();
+//					window.frmTaskmanLogin.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the application.
 	 */
 	public TaskManLogin() {
+//		initialize();
+//		this.frmTaskmanLogin.setVisible(true);
+	}
+	
+	public void paintWindow() {
 		initialize();
+		this.frmTaskmanLogin.setVisible(true);
 	}
 
 	/**
@@ -64,34 +78,106 @@ public class TaskManLogin{
 		frmTaskmanLogin.getContentPane().setLayout(null);
 		btnLogIn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				/*try{
-					// Connectiong to database to check login  and password
-				}
-				if(//Username and password is correct){
-					JOptionPane.showMessageDialog(null, "Username and password is correct");
-					
-				}*/
-				JOptionPane.showMessageDialog(null, "Username and password is correct");
-				frmTaskmanLogin.dispose();
-				TaskManTasks tasks= new TaskManTasks();
-				tasks.setVisible(true);
+				memberEmail = txtEmail.getText();
+				memberPass = txtPassword.getText();
+				txtEmail.setText("");
+				txtPassword.setText("");
+				//JOptionPane.showMessageDialog(null, "Username and password is correct");
+//				frmTaskmanLogin.dispose();
+//				TaskManTasks tasks= new TaskManTasks();
+//				tasks.setVisible(true);
 			}
 		});
 		btnLogIn.setBounds(322, 158, 118, 39);
 		frmTaskmanLogin.getContentPane().add(btnLogIn);
 		
 		txtPassword = new JTextField();
+		txtPassword.setText("Password");
+		txtPassword.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				txtPassword.setText("");
+			}
+		});
 		txtPassword.setBounds(330, 124, 118, 23);
 		frmTaskmanLogin.getContentPane().add(txtPassword);
 		txtPassword.setColumns(10);
 		
 		txtEmail = new JTextField();
 		txtEmail.setText("E-mail");
+		txtEmail.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				txtEmail.setText("");
+				
+			}
+		});
 		txtEmail.setBounds(106, 124, 118, 23);
 		frmTaskmanLogin.getContentPane().add(txtEmail);
 		txtEmail.setColumns(10);
 		
 		JCheckBox chckbxRememberMe = new JCheckBox("Remember me.");
+		chckbxRememberMe.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (chckbxRememberMe.isSelected())
+					rememberMe = true;
+				else if (!chckbxRememberMe.isSelected())
+					rememberMe = false;
+				
+			}
+		});
 		chckbxRememberMe.setBounds(106, 154, 130, 23);
 		frmTaskmanLogin.getContentPane().add(chckbxRememberMe);
 		
@@ -103,10 +189,49 @@ public class TaskManLogin{
 		lblEmail.setBounds(59, 128, 60, 14);
 		frmTaskmanLogin.getContentPane().add(lblEmail);
 		
+		lblMessage = new JLabel("");
+		lblMessage.setBounds(110, 190, 200, 19);
+		frmTaskmanLogin.getContentPane().add(lblMessage);
+		
 		UserPicture = new JLabel("");
 		Image defaultUserPic= new ImageIcon(this.getClass().getResource("/DefaultUser2.png")).getImage();
 		UserPicture.setIcon(new ImageIcon(defaultUserPic));
 		UserPicture.setBounds(217, 25, 72, 72);
 		frmTaskmanLogin.getContentPane().add(UserPicture);
 	}
+	
+	public String getEmail() {
+		return memberEmail;
+	}
+	
+	public String getPassword() {
+		return memberPass;
+	}
+	
+	public void setEmail(String email) {
+		memberEmail = email;
+	}
+	
+	public void setPassword(String pass) {
+		memberPass = pass;
+	}
+	
+	public boolean getRememberMe() {
+		return rememberMe;
+	}
+	
+	public void popupWindiw(String message) {
+		JOptionPane.showMessageDialog(null, message);
+		return;
+	}
+	
+	public void setMessage(String message) {
+		lblMessage.setText(message);
+	}
+	
+	public void exitWindow() {
+		frmTaskmanLogin.dispose();
+	}
+	
+	
 }
