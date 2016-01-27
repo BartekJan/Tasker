@@ -11,6 +11,7 @@ public class Tasker {
 	
 	private String memberEmail = "";
 	private String memberPass = "";
+	private String memberName = "";
 
 	public static void main(String[] args) {
 		
@@ -24,7 +25,7 @@ public class Tasker {
 		
 		while(true) {
 			runLogin();
-			
+			memberName = db.getName(memberEmail);
 			runMainWindow();
 		}
 	}
@@ -70,7 +71,7 @@ public class Tasker {
 	public void runMainWindow () {
 		mainWindow = new TaskManTasks();
 		
-		mainWindow.paintWindow(memberEmail);
+		mainWindow.paintWindow(memberName);
 		
 		boolean done = false;
 		

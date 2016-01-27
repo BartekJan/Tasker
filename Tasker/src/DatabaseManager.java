@@ -57,19 +57,6 @@ public class DatabaseManager {
 				tableContent = rs.getString("password");
 			}
 			
-//			while (rs.next()) {
-//				tableContent += rs.getInt("id");
-//	            tableContent += "\t\t";
-//	            tableContent += rs.getString("email");
-//	            tableContent += "\t\t";
-//	            tableContent += rs.getString("firstname");
-//	            tableContent += "\t\t";
-//	            tableContent += rs.getString("surname");
-//	            tableContent += "\t\t";
-//	            tableContent += rs.getString("password");
-//	            tableContent += "\n";
-//	         }
-			
 		} catch (SQLException e) {
 			closeConnection(c, stmt);
 			e.printStackTrace();
@@ -105,6 +92,33 @@ public class DatabaseManager {
 			return false;
 		}
 		
+	}
+	
+	public String getName(String memberEmail) {
+		Connection c = connect();
+		Statement stmt = null;
+		String tableContent = "";
+		
+		
+		try {
+			stmt = c.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT firstname, surname FROM members WHERE email='" + memberEmail + "'");
+			
+			while (rs.next()) {
+				tableContent = rs.getString("firstname");
+				tableContent += " ";
+				tableContent += rs.getString("surname");
+			}
+			
+		} catch (SQLException e) {
+			closeConnection(c, stmt);
+			e.printStackTrace();
+			return "Could not get name";
+		}
+		
+		closeConnection(c, stmt);
+		
+		return tableContent;
 	}
 	
 	public String getAllMembers() {
