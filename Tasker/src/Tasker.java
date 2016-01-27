@@ -8,6 +8,9 @@ public class Tasker {
 	DatabaseManager db = new DatabaseManager();
 	TaskManLogin loginWindow;
 	TaskManTasks mainWindow;
+	
+	private String memberEmail = "";
+	private String memberPass = "";
 
 	public static void main(String[] args) {
 		
@@ -38,19 +41,18 @@ public class Tasker {
 					if (db.loginDetails(loginWindow.getEmail(), loginWindow.getPassword())) {
 						// Valid email and password. User is now logged in
 						loingCorrect = true;
-						//loginWindow.popupWindiw("Valid email and password");
+						memberEmail = loginWindow.getEmail();
+						memberPass = loginWindow.getPassword();
 						loginWindow.setMessage("Valid email and password");
 						loginWindow.exitWindow();
 					}
 					else {
 						loginWindow.setMessage("Wrong email or password");
-						//loginWindow.popupWindiw("Wrong email or password");
 					}
 				}
 				else {
 					// print error
 					loginWindow.setMessage("Please enter a valid email address");
-					//loginWindow.popupWindiw("Please enter a valid email address");
 				}
 				loginWindow.setEmail("");
 				loginWindow.setPassword("");

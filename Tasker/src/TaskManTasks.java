@@ -55,7 +55,7 @@ public class TaskManTasks {
 	private void initialize() {
 		frmTasks = new JFrame();
 		frmTasks.setTitle("Tasks");
-		frmTasks.setBounds(100, 100, 700, 500);
+		frmTasks.setBounds(100, 100, 740, 500);
 		frmTasks.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmTasks.getContentPane().setLayout(null);
 		
@@ -82,14 +82,14 @@ public class TaskManTasks {
 		logoutButton.setBounds(600, 15, 89, 23);
 		frmTasks.getContentPane().add(logoutButton);
 		
-		JLabel progressBarTitle = new JLabel("Progress Bar:");
-		progressBarTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		progressBarTitle.setBounds(250, 420, 149, 23);
-		frmTasks.getContentPane().add(progressBarTitle);
+//		JLabel progressBarTitle = new JLabel("Progress Bar:");
+//		progressBarTitle.setHorizontalAlignment(SwingConstants.CENTER);
+//		progressBarTitle.setBounds(250, 420, 149, 23);
+//		frmTasks.getContentPane().add(progressBarTitle);
 		
-		JProgressBar progressBar = new JProgressBar();
-		progressBar.setBounds(250, 440, 149, 23);
-		frmTasks.getContentPane().add(progressBar);
+//		JProgressBar progressBar = new JProgressBar();
+//		progressBar.setBounds(250, 440, 149, 23);
+//		frmTasks.getContentPane().add(progressBar);
 		
 		JTextArea taskContent = new JTextArea();
 		taskContent.setBounds(200, 240, 300, 150);
@@ -111,7 +111,7 @@ public class TaskManTasks {
 		frmTasks.getContentPane().add(editorPane);
 		
 		JButton commentButton = new JButton("Add comment");
-		commentButton.setBounds(270, 390, 150, 23);
+		commentButton.setBounds(270, 400, 150, 23);
 		frmTasks.getContentPane().add(commentButton);
 	}
 

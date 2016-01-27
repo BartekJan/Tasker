@@ -8,6 +8,7 @@ import java.awt.BorderLayout;
 
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -27,7 +28,7 @@ public class TaskManLogin{
 
 	private JFrame frmTaskmanLogin;
 	private final JButton btnLogIn = new JButton("Login");
-	private JTextField txtPassword;
+	private JPasswordField txtPassword;
 	private JTextField txtEmail;
 	private JLabel lblPassword;
 	private JLabel lblEmail;
@@ -91,7 +92,7 @@ public class TaskManLogin{
 		btnLogIn.setBounds(322, 158, 118, 39);
 		frmTaskmanLogin.getContentPane().add(btnLogIn);
 		
-		txtPassword = new JTextField();
+		txtPassword = new JPasswordField();
 		txtPassword.setText("Password");
 		txtPassword.addMouseListener(new MouseListener() {
 			
