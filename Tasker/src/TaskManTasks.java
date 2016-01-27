@@ -24,24 +24,29 @@ public class TaskManTasks {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TaskManTasks window = new TaskManTasks();
-					window.frmTasks.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					TaskManTasks window = new TaskManTasks();
+//					window.frmTasks.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the application.
 	 */
 	public TaskManTasks() {
+		//initialize();
+	}
+	
+	public void paintWindow() {
 		initialize();
+		this.frmTasks.setVisible(true);
 	}
 
 	/**

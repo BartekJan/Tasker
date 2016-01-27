@@ -7,6 +7,7 @@ public class Tasker {
 	
 	DatabaseManager db = new DatabaseManager();
 	TaskManLogin loginWindow;
+	TaskManTasks mainWindow;
 
 	public static void main(String[] args) {
 		
@@ -16,6 +17,7 @@ public class Tasker {
 		
 		tasker.runLogin();
 		
+		tasker.runMainWindow();
 		
 	}
 	
@@ -56,6 +58,14 @@ public class Tasker {
 			}
 		}
 	}
+
+	
+	public void runMainWindow () {
+		mainWindow = new TaskManTasks();
+		
+		mainWindow.paintWindow();
+	}
+	
 	
 	public boolean checkEmail(String email) {
 		
