@@ -7,6 +7,8 @@ import javax.swing.JList;
 import javax.swing.border.LineBorder;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -19,6 +21,10 @@ import javax.swing.JTextArea;
 
 public class TaskManTasks {
 
+	
+	private String memberEmail = "";
+	boolean logoutVal = false;
+	
 	private JFrame frmTasks;
 
 	/**
@@ -44,7 +50,8 @@ public class TaskManTasks {
 		//initialize();
 	}
 	
-	public void paintWindow() {
+	public void paintWindow(String email) {
+		memberEmail = email;
 		initialize();
 		this.frmTasks.setVisible(true);
 	}
@@ -65,7 +72,7 @@ public class TaskManTasks {
 		userPic.setBounds(29, 30, 72, 72);
 		frmTasks.getContentPane().add(userPic);
 		
-		JLabel userName = new JLabel("User name");
+		JLabel userName = new JLabel(memberEmail);
 		userName.setBounds(136, 26, 149, 23);
 		frmTasks.getContentPane().add(userName);
 		
@@ -79,6 +86,13 @@ public class TaskManTasks {
 		frmTasks.getContentPane().add(updateButton);
 		
 		JButton logoutButton = new JButton("Log out");
+		logoutButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				logoutVal = true;
+			}
+		});
 		logoutButton.setBounds(600, 15, 89, 23);
 		frmTasks.getContentPane().add(logoutButton);
 		
@@ -119,5 +133,22 @@ public class TaskManTasks {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	/**
+	 * If true, the user has pressed 
+	 * the logout button
+	 * @return true or false
+	 */
+	public boolean getLogOut() {
+		return logoutVal;
+	}
+	
+	/**
+	 * Closes the window
+	 */
+	public void exitWindow() {
+		frmTasks.dispose();
+	}
+	
 }
 

@@ -15,13 +15,18 @@ public class Tasker {
 	public static void main(String[] args) {
 		
 		Tasker tasker = new Tasker();
-
-		tasker.testConnection();
+		tasker.run();
 		
-		tasker.runLogin();
+	}
+	
+	private void run() {
+		testConnection();
 		
-		tasker.runMainWindow();
-		
+		while(true) {
+			runLogin();
+			
+			runMainWindow();
+		}
 	}
 	
 	public void runLogin() {
@@ -65,7 +70,16 @@ public class Tasker {
 	public void runMainWindow () {
 		mainWindow = new TaskManTasks();
 		
-		mainWindow.paintWindow();
+		mainWindow.paintWindow(memberEmail);
+		
+		boolean done = false;
+		
+		while(!done) {
+			if (mainWindow.getLogOut()) {
+				mainWindow.exitWindow();
+				done = true;
+			}
+		}
 	}
 	
 	
