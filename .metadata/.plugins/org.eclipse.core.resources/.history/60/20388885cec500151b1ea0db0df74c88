@@ -13,7 +13,6 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
-import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
@@ -46,15 +45,11 @@ public class TaskManTasks {
 
 	/**
 	 * Create the application.
-	 * @wbp.parser.entryPoint
 	 */
 	public TaskManTasks() {
-		initialize();
+		//initialize();
 	}
 	
-	/**
-	 * @wbp.parser.entryPoint
-	 */
 	public void paintWindow(String email) {
 		memberEmail = email;
 		initialize();
@@ -63,7 +58,6 @@ public class TaskManTasks {
 
 	/**
 	 * Initialize the contents of the frame.
-	 * @wbp.parser.entryPoint
 	 */
 	private void initialize() {
 		frmTasks = new JFrame();
@@ -102,15 +96,15 @@ public class TaskManTasks {
 		logoutButton.setBounds(600, 15, 89, 23);
 		frmTasks.getContentPane().add(logoutButton);
 		
-/*		JLabel progressBarTitle = new JLabel("Progress Bar:");
-		progressBarTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		progressBarTitle.setBounds(250, 420, 149, 23);
-		frmTasks.getContentPane().add(progressBarTitle);
+//		JLabel progressBarTitle = new JLabel("Progress Bar:");
+//		progressBarTitle.setHorizontalAlignment(SwingConstants.CENTER);
+//		progressBarTitle.setBounds(250, 420, 149, 23);
+//		frmTasks.getContentPane().add(progressBarTitle);
 		
-		JProgressBar progressBar = new JProgressBar();
-		progressBar.setBounds(250, 440, 149, 23);
-		frmTasks.getContentPane().add(progressBar);
-*/		
+//		JProgressBar progressBar = new JProgressBar();
+//		progressBar.setBounds(250, 440, 149, 23);
+//		frmTasks.getContentPane().add(progressBar);
+		
 		JTextArea taskContent = new JTextArea();
 		taskContent.setBounds(200, 240, 300, 150);
 		frmTasks.getContentPane().add(taskContent);
@@ -127,32 +121,13 @@ public class TaskManTasks {
 		//Enable scroll bar.
 		JScrollPane editorScrollPane = new JScrollPane(editorPane);
 		editorScrollPane.setVerticalScrollBarPolicy(
-		               JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		//frmTasks.getContentPane().add(editorPane);
+		                JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		frmTasks.getContentPane().add(editorPane);
 		
 		JButton commentButton = new JButton("Add comment");
 		commentButton.setBounds(270, 400, 150, 23);
 		frmTasks.getContentPane().add(commentButton);
-		
-		JLabel lblUsername = new JLabel("UserName");
-		lblUsername.setHorizontalAlignment(SwingConstants.CENTER);
-		lblUsername.setBounds(29, 11, 72, 14);
-		frmTasks.getContentPane().add(lblUsername);
-		
-//pop up window appears with input area
-/*		commentButton.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        commentArea.setVisible(true);
-		    }
-		}    
-
-		 commentButton.addActionListener(new java.awt.event.ActionListener() {
-	            @Override
-	            public void actionPerformed(java.awt.event.ActionEvent evt) {
-	                String name = JOptionPane.showInputDialog(frmTasks, "Enter your comment", null);
-	            }
-	     });
-*/	}
+	}
 
 	public void setVisible(boolean b) {
 		// TODO Auto-generated method stub
