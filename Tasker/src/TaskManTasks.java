@@ -1,4 +1,5 @@
 import java.awt.EventQueue;
+import java.awt.GridLayout;
 import java.awt.Image;
 
 import javax.swing.JFrame;
@@ -14,6 +15,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
@@ -72,6 +74,29 @@ public class TaskManTasks {
 		frmTasks.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmTasks.getContentPane().setLayout(null);
 		
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.setLayout( new GridLayout(3,1) );
+		
+		//Box buttonPanel = Box.createVerticalBox();
+		
+		JButton testButton1 = new JButton("Test1");
+		//testButton1.setBounds(500, 15, 89, 23);
+		buttonPanel.add(testButton1, buttonPanel);
+		
+		JButton testButton2 = new JButton("Test2");
+		//testButton2.setBounds(500, 15, 89, 23);
+		buttonPanel.add(testButton2);
+		
+		JButton testButton3 = new JButton("Test3");
+		//testButton2.setBounds(500, 15, 89, 23);
+		buttonPanel.add(testButton3);
+		
+		JScrollPane scrollPane = new JScrollPane(buttonPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setBounds(29, 130, 140, 280);
+		//scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		//scrollPane.add(buttonPanel);
+		frmTasks.add(scrollPane);
+		
 		JLabel userPic = new JLabel("User pic");
 		Image defaultUserPic= new ImageIcon(this.getClass().getResource("/DefaultUser2.png")).getImage();
 		userPic.setIcon(new ImageIcon(defaultUserPic));
@@ -128,15 +153,15 @@ public class TaskManTasks {
 		JScrollPane editorScrollPane = new JScrollPane(editorPane);
 		editorScrollPane.setVerticalScrollBarPolicy(
 		               JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		//frmTasks.getContentPane().add(editorPane);
+		frmTasks.getContentPane().add(editorPane);
 		
 		JButton commentButton = new JButton("Add comment");
 		commentButton.setBounds(270, 400, 150, 23);
 		frmTasks.getContentPane().add(commentButton);
 		
-		JLabel lblUsername = new JLabel("UserName");
-		lblUsername.setHorizontalAlignment(SwingConstants.CENTER);
-		lblUsername.setBounds(29, 11, 72, 14);
+		JLabel lblUsername = new JLabel("Status");
+		//lblUsername.setHorizontalAlignment(SwingConstants.CENTER);
+		lblUsername.setBounds(600, 80, 72, 14);
 		frmTasks.getContentPane().add(lblUsername);
 		
 //pop up window appears with input area
