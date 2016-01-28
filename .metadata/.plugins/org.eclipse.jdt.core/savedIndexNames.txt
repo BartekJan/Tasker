@@ -1,3 +1,6 @@
 INDEX VERSION 1.127+C:\Users\Bartek Jankowski\Documents\GitHub\Tasker\.metadata\.plugins\org.eclipse.jdt.core
+754013734.index
 3520982240.index
+252363715.index
 3752184190.index
+3546629087.index

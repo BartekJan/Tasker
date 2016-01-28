@@ -96,15 +96,15 @@ public class TaskManTasks {
 		logoutButton.setBounds(600, 15, 89, 23);
 		frmTasks.getContentPane().add(logoutButton);
 		
-//		JLabel progressBarTitle = new JLabel("Progress Bar:");
-//		progressBarTitle.setHorizontalAlignment(SwingConstants.CENTER);
-//		progressBarTitle.setBounds(250, 420, 149, 23);
-//		frmTasks.getContentPane().add(progressBarTitle);
+/*		JLabel progressBarTitle = new JLabel("Progress Bar:");
+		progressBarTitle.setHorizontalAlignment(SwingConstants.CENTER);
+		progressBarTitle.setBounds(250, 420, 149, 23);
+		frmTasks.getContentPane().add(progressBarTitle);
 		
-//		JProgressBar progressBar = new JProgressBar();
-//		progressBar.setBounds(250, 440, 149, 23);
-//		frmTasks.getContentPane().add(progressBar);
-		
+		JProgressBar progressBar = new JProgressBar();
+		progressBar.setBounds(250, 440, 149, 23);
+		frmTasks.getContentPane().add(progressBar);
+*/		
 		JTextArea taskContent = new JTextArea();
 		taskContent.setBounds(200, 240, 300, 150);
 		frmTasks.getContentPane().add(taskContent);
@@ -127,6 +127,14 @@ public class TaskManTasks {
 		JButton commentButton = new JButton("Add comment");
 		commentButton.setBounds(270, 400, 150, 23);
 		frmTasks.getContentPane().add(commentButton);
+		
+//pop up window appears with input area
+/*		commentButton.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        commentArea.setVisible(true);
+		    }
+		}    
+*/		 
 	}
 
 	public void setVisible(boolean b) {
