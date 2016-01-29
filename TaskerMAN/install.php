@@ -29,7 +29,7 @@ if (isset($_POST["connect"])) {
 	} else {
 		$problem = 0;
 		// 1 tasks
-		$create = pg_query($db, "CREATE TABLE IF NOT EXISTS tasks1(
+		$create = pg_query($db, "CREATE TABLE IF NOT EXISTS tasks(
 		id serial PRIMARY KEY NOT NULL,
 		title VARCHAR(20) NOT NULL,
 		startdate date NOT NULL,
@@ -41,7 +41,7 @@ if (isset($_POST["connect"])) {
 		  $dbmsg[$i++] = "Can't create table tasks.\n";
 		}
 		// 2 members
-		$create = pg_query($db, "CREATE TABLE IF NOT EXISTS members1(
+		$create = pg_query($db, "CREATE TABLE IF NOT EXISTS members(
 		id serial PRIMARY KEY NOT NULL,
 		email VARCHAR(100),
 		firstname VARCHAR(20) NOT NULL,
@@ -53,7 +53,7 @@ if (isset($_POST["connect"])) {
 		  $dbmsg[$i++] = "Can't create table members.\n";
 		}
 		// 3 managers
-		$create = pg_query($db, "CREATE TABLE IF NOT EXISTS managers1(
+		$create = pg_query($db, "CREATE TABLE IF NOT EXISTS managers(
 		id serial PRIMARY KEY NOT NULL,
 		email VARCHAR(100) NOT NULL,
 		firstname VARCHAR(20) NOT NULL,
@@ -65,7 +65,7 @@ if (isset($_POST["connect"])) {
 		  $dbmsg[$i++] = "Can't create table managers.\n";
 		}
 		// 4 taskstatuses
-		$create = pg_query($db, "CREATE TABLE IF NOT EXISTS taskstatuses1(
+		$create = pg_query($db, "CREATE TABLE IF NOT EXISTS taskstatuses(
 		id serial PRIMARY KEY     NOT NULL,
 		text VARCHAR(20) NOT NULL
 		)");
@@ -74,7 +74,7 @@ if (isset($_POST["connect"])) {
 		  $dbmsg[$i++] = "Can't create table taskstatuses.\n";
 		}
 		//  5 taskmembers
-		$create = pg_query($db, "CREATE TABLE IF NOT EXISTS taskmembers1(
+		$create = pg_query($db, "CREATE TABLE IF NOT EXISTS taskmembers(
 		id serial PRIMARY KEY  NOT NULL,
 		member_id INT NOT NULL,
 		task_id INT NOT NULL
@@ -84,7 +84,7 @@ if (isset($_POST["connect"])) {
 		  $dbmsg[$i++] = "Can't create table taskmembers.\n";
 		}
 		//  6 taskelements
-		$create = pg_query($db, "CREATE TABLE IF NOT EXISTS taskelements1(
+		$create = pg_query($db, "CREATE TABLE IF NOT EXISTS taskelements(
 		id serial PRIMARY KEY     NOT NULL,
 		task_id INT NOT NULL,
 		text VARCHAR(500)
@@ -94,7 +94,7 @@ if (isset($_POST["connect"])) {
 		  $dbmsg[$i++] = "Can't create table taskelements.\n";
 		}
 		//  7 taskelementcomments
-		$create = pg_query($db, "CREATE TABLE IF NOT EXISTS taskelementcomments1(
+		$create = pg_query($db, "CREATE TABLE IF NOT EXISTS taskelementcomments(
 		id serial PRIMARY KEY     NOT NULL,
 		member_id INT NOT NULL,
 		taskelement_id INT NOT NULL,
@@ -105,7 +105,7 @@ if (isset($_POST["connect"])) {
 		  $dbmsg[$i++] = "Can't create table taskelementcomments.\n";
 		}
 		//  8 taskelementmembers
-		$create = pg_query($db, "CREATE TABLE IF NOT EXISTS taskelementmembers1(
+		$create = pg_query($db, "CREATE TABLE IF NOT EXISTS taskelementmembers(
 		id serial PRIMARY KEY     NOT NULL,
 		member_id INT NOT NULL,
 		taskelement_id INT NOT NULL
@@ -118,12 +118,12 @@ if (isset($_POST["connect"])) {
 		$insert1 = 1;
 		$insert2 = 1;
 		$insert3 = 1;
-		$select = pg_query($db, "SELECT id FROM taskstatuses1 where text='Allocated'");
-		if (!($row = pg_fetch_row($select))) $insert1 = pg_query($db, "INSERT into taskstatuses1 (text) VALUES ('Allocated')");
-		$select = pg_query($db, "SELECT id FROM taskstatuses1 where text='Abandoned'");
-	    if (!($row = pg_fetch_row($select))) $insert2 = pg_query($db, "INSERT into taskstatuses1 (text) VALUES ('Abandoned')");
-		$select = pg_query($db, "SELECT id FROM taskstatuses1 where text='Completed'");
-	    if (!($row = pg_fetch_row($select))) $insert3 = pg_query($db, "INSERT into taskstatuses1 (text) VALUES ('Completed')");
+		$select = pg_query($db, "SELECT id FROM taskstatuses where text='Allocated'");
+		if (!($row = pg_fetch_row($select))) $insert1 = pg_query($db, "INSERT into taskstatuses (text) VALUES ('Allocated')");
+		$select = pg_query($db, "SELECT id FROM taskstatuses where text='Abandoned'");
+	    if (!($row = pg_fetch_row($select))) $insert2 = pg_query($db, "INSERT into taskstatuses (text) VALUES ('Abandoned')");
+		$select = pg_query($db, "SELECT id FROM taskstatuses where text='Completed'");
+	    if (!($row = pg_fetch_row($select))) $insert3 = pg_query($db, "INSERT into taskstatuses (text) VALUES ('Completed')");
 		if (!$insert1 || !$insert2 || !$insert3) {
 			$problem = 1;
 			$dbmsg[$i++] = "Can't insert the task statuses in table taskstatuses.\n";
