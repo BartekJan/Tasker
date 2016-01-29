@@ -6,8 +6,8 @@ import org.postgresql.ssl.DbKeyStoreSocketFactory.DbKeyStoreSocketException;
 public class Tasker {
 	
 	DatabaseManager db = new DatabaseManager();
-	TaskManLogin loginWindow = new TaskManLogin();;
-	TaskManTasks mainWindow = new TaskManTasks();;
+	TaskManLogin loginWindow = new TaskManLogin(this);
+	//TaskManTasks mainWindow = new TaskManTasks();
 	
 	private String memberEmail = "";
 	private String memberPass = "";
@@ -24,16 +24,21 @@ public class Tasker {
 		testConnection();
 		
 		while(true) {
-			if(!mainWindow.getRunning() && !loginWindow.getRunning())
+			if(!loginWindow.getRunning() && !loginWindow.mainRunning())
 				runLogin();
-			if (loginWindow.getLoginOK() && !mainWindow.getRunning()) {
-				loginWindow.exitWindow();
-				memberEmail = loginWindow.getEmail();
-				memberName = db.getName(memberEmail);
-				runMainWindow();
-				loginWindow.setLoginOK(false);
-			}
 		}
+		
+//		while(true) {
+//			if(!mainWindow.getRunning() && !loginWindow.getRunning())
+//				runLogin();
+//			if (loginWindow.getLoginOK() && !mainWindow.getRunning()) {
+//				loginWindow.exitWindow();
+//				memberEmail = loginWindow.getEmail();
+//				memberName = db.getName(memberEmail);
+//				runMainWindow();
+//				loginWindow.setLoginOK(false);
+//			}
+//		}
 	}
 	
 	public void runLogin() {
@@ -72,21 +77,21 @@ public class Tasker {
 	}
 
 	
-	public void runMainWindow () {
-		
-		mainWindow.paintWindow(memberName);
-		
-		mainWindow.setTaskTitles(db.getAllUserTaskTitles());
-		
-//		boolean done = false;
+//	public void runMainWindow () {
 //		
-//		while(!done) {
-//			if (mainWindow.getLogOut()) {
-//				mainWindow.exitWindow();
-//				done = true;
-//			}
-//		}
-	}
+//		mainWindow.paintWindow(memberName);
+//		
+//		mainWindow.setTaskTitles(db.getAllUserTaskTitles());
+//		
+////		boolean done = false;
+////		
+////		while(!done) {
+////			if (mainWindow.getLogOut()) {
+////				mainWindow.exitWindow();
+////				done = true;
+////			}
+////		}
+//	}
 	
 	
 	public boolean checkEmail(String email) {

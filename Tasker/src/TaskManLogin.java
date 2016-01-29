@@ -26,6 +26,7 @@ import java.security.PublicKey;
 
 public class TaskManLogin{
 
+	private TaskManTasks mainWindow = new TaskManTasks();
 	private Actions action = new Actions();
 	private JFrame frmTaskmanLogin;
 	private final JButton btnLogIn = new JButton("Login");
@@ -39,7 +40,6 @@ public class TaskManLogin{
 	private String memberEmail = "";
 	private String memberPass = "";
 	private boolean rememberMe = false;
-	private boolean loginOK = false;
 	private boolean running = false;
 
 	/**
@@ -58,14 +58,14 @@ public class TaskManLogin{
 //		});
 //	}
 
+
+	public TaskManLogin(Tasker taskerObject) {
+		mainWindow.setTaskerObject(taskerObject);
+	}
+	
 	/**
 	 * Create the application.
 	 */
-	public TaskManLogin() {
-//		initialize();
-//		this.frmTaskmanLogin.setVisible(true);
-	}
-	
 	public void paintWindow() {
 		running = true;
 		initialize();
@@ -89,7 +89,7 @@ public class TaskManLogin{
 				txtEmail.setText("");
 				txtPassword.setText("");
 				if(lblMessage.getText() == "Valid email and password") {
-					loginOK = true;
+					runMainWindow();
 				}
 				//JOptionPane.showMessageDialog(null, "Username and password is correct");
 //				frmTaskmanLogin.dispose();
@@ -238,14 +238,6 @@ public class TaskManLogin{
 		lblMessage.setText(message);
 	}
 	
-	public boolean getLoginOK() {
-		return loginOK;
-	}
-	
-	public void setLoginOK(boolean login) {
-		loginOK = login;
-	}
-	
 	public boolean getRunning() {
 		return running;
 	}
@@ -255,5 +247,15 @@ public class TaskManLogin{
 		frmTaskmanLogin.dispose();
 	}
 	
+	public void runMainWindow () {
+		
+		mainWindow.paintWindow(action.getName(memberEmail));
+		mainWindow.setTaskTitles(action.getAllUserTaskTitles());
+		
+		exitWindow();
+	}
 	
+	public boolean mainRunning() {
+		return mainWindow.getRunning();
+	}
 }

@@ -189,24 +189,32 @@ public class DatabaseManager {
 		return taskTitles;
 	}
 	
-	public void getAllTaskInfo(String taskTitle) {
-
+	public String[] getAllTaskInfo(String taskTitle) {
+		
+		String[] allInfo = new String[5];
 		String startdate = "";
 		String enddate = "";
 		int status = 0;
+		int id = 0;
 		String statusString = "";
+		String element = "";
 		
 		Connection c = connect();
 		Statement stmt = null;
 		String tableContent = "";
+		String comments = "";
+		int elementID = 0;
+		int elementMemberID = 0;
+		String memberName = "";
 		
 		try {
 			stmt = c.createStatement();
 			
 			// Get startdate, enddate and the id of the status
-			ResultSet rs = stmt.executeQuery("SELECT startdate, enddate, status FROM tasks WHERE title='" + taskTitle + "'");
+			ResultSet rs = stmt.executeQuery("SELECT id, startdate, enddate, status FROM tasks WHERE title='" + taskTitle + "'");
 			
 			while (rs.next()) {
+				id = rs.getInt("id");
 				startdate = rs.getString("startdate");
 				enddate = rs.getString("enddate");
 				status = rs.getInt("status");
@@ -218,14 +226,58 @@ public class DatabaseManager {
 				statusString = rs.getString("text");
 			}
 			
+			// Get element from id
+			rs = stmt.executeQuery("SELECT id, text FROM taskelements WHERE task_id=" + id );
+			while (rs.next()) {
+				elementID = rs.getInt("id");
+				element = rs.getString("text");
+			}
+			
+			// Get element from id
+			comments = "";
+			rs = stmt.executeQuery("SELECT member_id, text FROM taskelementcomments WHERE taskelement_id=" + elementID );
+			while (rs.next()) {
+				elementMemberID = rs.getInt("member_id");
+				comments += getUsername(c, elementMemberID);
+				comments += ": ";
+				comments += rs.getString("text");
+				comments += "\n";
+			}
+			
 		} catch (SQLException e) {
 			closeConnection(c, stmt);
 			e.printStackTrace();
 		}
+		allInfo[0] = startdate;
+		allInfo[1] = enddate;
+		allInfo[2] = statusString;
+		allInfo[3] = element;
+		allInfo[4] = comments;
 		
 		closeConnection(c, stmt);
-        return;
+        return allInfo;
 		
+	}
+	
+	private String getUsername(Connection c, int elementMemberID) {
+		String memberName = "";
+		Statement stmt = null;
+		
+		try {
+			stmt = c.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT firstname, surname FROM members WHERE id=" + elementMemberID );
+			while (rs.next()) {
+				memberName = rs.getString("firstname");
+				memberName += " ";
+				memberName += rs.getString("surname");
+			}
+			
+		} catch (SQLException e) {
+			closeConnection(c, stmt);
+			e.printStackTrace();
+		}
+
+		return memberName;
 	}
 	
 	public String getAllMembers() {

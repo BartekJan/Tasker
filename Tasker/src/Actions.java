@@ -1,7 +1,14 @@
 
 public class Actions {
 
-	DatabaseManager db = new DatabaseManager();
+	private DatabaseManager db = new DatabaseManager();
+	private TaskManLogin taskerLogin;
+
+	private String startdate = "";
+	private String enddate = "";
+	private String status = "";
+	private String element = "";
+	private String comments = "";
 	
 	public String loginTest(String email, String password) {
 	
@@ -34,4 +41,41 @@ public class Actions {
 	}
 	
 	
+	public void getTaskInfo(String taskTitle) {
+		String[] allInfo = db.getAllTaskInfo(taskTitle);
+		
+		startdate = allInfo[0];
+		enddate = allInfo[1];
+		status = allInfo[2];
+		element = allInfo[3];
+		comments = allInfo[4];
+	}
+	
+	public String getStartDate() {
+		return startdate;
+	}
+	public String getEndDate() {
+		return enddate;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public String getElement() {
+		return element;
+	}
+	public String getComments() {
+		return comments;
+	}
+	
+	public String getName(String memberEmail) {
+		return db.getName(memberEmail);
+	}
+	
+	public String[] getAllUserTaskTitles() {
+		return db.getAllUserTaskTitles();
+	}
+	
+	public void runLogin(Tasker taskObject) {
+		taskObject.runLogin();
+	}
 }

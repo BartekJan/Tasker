@@ -31,30 +31,24 @@ public class TaskManTasks implements ActionListener{
 	boolean logoutVal = false;
 	private boolean running = false;
 	
-	private JFrame frmTasks = new JFrame();;
-
-	/**
-	 * Launch the application.
-	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					TaskManTasks window = new TaskManTasks();
-//					window.frmTasks.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
+	private JFrame frmTasks = new JFrame();
+	Actions action = new Actions();
+	private Tasker tasker;
+	
+	
+	JLabel lblstartdate = new JLabel("startdate");
+	JLabel lblenddate = new JLabel("enddate");
+	JLabel lblStatus = new JLabel("Status");
+	JEditorPane taskContent = new JEditorPane();
+	JEditorPane editorPane = new JEditorPane();
+	
 
 	/**
 	 * Create the application.
 	 * @wbp.parser.entryPoint
 	 */
 	public TaskManTasks() {
-		initialize();
+		
 	}
 	
 	/**
@@ -101,59 +95,47 @@ public class TaskManTasks implements ActionListener{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				runLogin();
+				clearWindow();
 				exitWindow();
-//				logoutVal = true;
 			}
 		});
 		logoutButton.setBounds(600, 15, 89, 23);
 		frmTasks.getContentPane().add(logoutButton);
 		
-/*		JLabel progressBarTitle = new JLabel("Progress Bar:");
-		progressBarTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		progressBarTitle.setBounds(250, 420, 149, 23);
-		frmTasks.getContentPane().add(progressBarTitle);
-		
-		JProgressBar progressBar = new JProgressBar();
-		progressBar.setBounds(250, 440, 149, 23);
-		frmTasks.getContentPane().add(progressBar);
-*/		
-		
-		
-		JLabel lblstartdate = new JLabel("startdate:");
 		lblstartdate.setBounds(590, 400, 100, 14);
 		frmTasks.getContentPane().add(lblstartdate);
 		
-		JLabel lblenddate = new JLabel("enddate:");
 		lblenddate.setBounds(590, 420, 100, 14);
 		frmTasks.getContentPane().add(lblenddate);
 		
-		JTextArea taskContent = new JTextArea();
-		taskContent.setBounds(200, 240, 300, 150);
+		taskContent.setEditable(false);
+		taskContent.setBounds(200, 80, 300, 150);
 		frmTasks.getContentPane().add(taskContent);
+		//frmTasks.getContentPane().add(taskContent);
+//		JScrollPane taskScrollPane = new JScrollPane(taskContent);
+//		taskScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+//		frmTasks.getContentPane().add(taskScrollPane);
+		
+		editorPane.setEditable(false);
+		editorPane.setBounds(200, 240, 300, 150);
+		frmTasks.getContentPane().add(editorPane);
+		//Enable scroll bar.
+//		JScrollPane editorScrollPane = new JScrollPane(editorPane);
+//		editorScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+//		frmTasks.getContentPane().add(editorScrollPane);
 		
 		JLabel lblTaskContent = new JLabel("Task content:");
-		lblTaskContent.setBounds(210, 60, 100, 14);
+		lblTaskContent.setBounds(200, 60, 100, 14);
 		frmTasks.getContentPane().add(lblTaskContent);
-		
-		/* Can set this to take text from a URL, was thinking this was a way to 
-		display the task details?*/
-		JEditorPane editorPane = new JEditorPane();
-		editorPane.setEditable(false);
-		editorPane.setBounds(200, 80, 300, 150);
-		//Enable scroll bar.
-		JScrollPane editorScrollPane = new JScrollPane(editorPane);
-		editorScrollPane.setVerticalScrollBarPolicy(
-		               JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		frmTasks.getContentPane().add(editorPane);
 		
 		JButton commentButton = new JButton("Add comment");
 		commentButton.setBounds(270, 400, 150, 23);
+		commentButton.addActionListener(this);
 		frmTasks.getContentPane().add(commentButton);
 		
-		JLabel lblUsername = new JLabel("Status");
-		//lblUsername.setHorizontalAliegnment(SwingConstants.CENTER);
-		lblUsername.setBounds(600, 80, 72, 14);
-		frmTasks.getContentPane().add(lblUsername);
+		lblStatus.setBounds(600, 80, 72, 14);
+		frmTasks.getContentPane().add(lblStatus);
 		
 	}
 
@@ -225,11 +207,45 @@ public class TaskManTasks implements ActionListener{
 		frmTasks.validate();
 		frmTasks.repaint();
 	}
+	
+	private void updateTask(ActionEvent e) {
+		action.getTaskInfo(e.getActionCommand());
+		
+		lblstartdate.setText(action.getStartDate());
+		lblenddate.setText(action.getEndDate());
+		lblStatus.setText(action.getStatus());
+		taskContent.setText(action.getElement());
+		editorPane.setText(action.getComments());
+	}
+	
+	private void newComment() {
+		
+		editorPane.setText("");
+		editorPane.setEditable(true);
+	}
+	
+	private void runLogin() {
+		action.runLogin(tasker);
+	}
+	
+	public void setTaskerObject(Tasker taskerObject) {
+		tasker = taskerObject;
+	}
+	
+	private void clearWindow() {
+		lblstartdate.setText("start date");
+		lblenddate.setText("end date");
+		lblStatus.setText("status");
+		taskContent.setText("");
+		editorPane.setText("");
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
-		
+		if(e.getActionCommand() == "Add comment") 
+			newComment();
+		else
+			updateTask(e);
 	}
 	
 }
