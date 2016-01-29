@@ -86,4 +86,8 @@ public class Actions {
 	public void changeStatus(String taskName, int status) {
 		db.changeStatus(taskName, status+1);
 	}
+	
+	public void setNewDatabase(String url, String user, String password, String port, String databaseName) {
+		db.setNewDatabase(url, user, password, port, databaseName);
+	}
 }

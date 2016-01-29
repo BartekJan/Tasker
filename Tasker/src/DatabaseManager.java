@@ -16,6 +16,12 @@ public class DatabaseManager {
 	String PASS = "groupXYZ";
 	int memberID = 0;
 
+	
+	public void setNewDatabase(String url, String user, String password, String port, String databaseName) {
+		URL = "jdbc:postgresql://" + url + ":" + port + "/" + databaseName;
+		USER = user;
+		PASS = password;
+	}
 
 	private Connection connect() {
 		Connection c = null;
@@ -150,9 +156,6 @@ public class DatabaseManager {
 	
 	public String[] getAllUserTaskTitles() {
 		String[] taskTitles = new String[500];
-//		String[] startdates = new String[500];
-//		String[] enddates = new String[500];
-//		String[] statuses = new String[500];
 		Connection c = connect();
 		Statement stmt = null;
 		

@@ -28,6 +28,7 @@ import javax.swing.SwingUtilities;
 
 public class TaskManTasks implements ActionListener{
 
+	private dbInfo dbinfo = new dbInfo();
 	
 	private String taskName = "";
 	private String memberEmail = "";
@@ -48,6 +49,7 @@ public class TaskManTasks implements ActionListener{
 	private JLabel lblStatus = new JLabel("Status");
 	private JEditorPane taskContent = new JEditorPane();
 	private JEditorPane editorPane = new JEditorPane();
+	private JButton btnInfo = new JButton("Add new DB");
 	
 
 	/**
@@ -93,6 +95,17 @@ public class TaskManTasks implements ActionListener{
 		taskList.setBorder(new LineBorder(new Color(0, 0, 0)));
 		taskList.setBounds(136, 338, -109, -192);
 		frmTasks.getContentPane().add(taskList);
+		
+		btnInfo.setBounds(600, 200, 120, 23);
+		btnInfo.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dbinfo.paintWindow();
+				
+			}
+		});
+		frmTasks.getContentPane().add(btnInfo);
 		
 		JButton logoutButton = new JButton("Log out");
 		logoutButton.addActionListener(new ActionListener() {
@@ -182,9 +195,8 @@ public class TaskManTasks implements ActionListener{
 	public void setTaskTitles(String[] titles) {
 		
 		ArrayList<JButton> buttonList = new ArrayList<JButton>();
-		
+		int buttonCounter = 0;
 		JPanel buttonPanel = new JPanel();
-		buttonPanel.setLayout( new GridLayout(3,1) );
 		
 		for (String t : titles) {
 			if (t == null)
@@ -195,26 +207,12 @@ public class TaskManTasks implements ActionListener{
 		for (JButton b : buttonList) {
 			b.addActionListener(this);
 			buttonPanel.add(b);
+			buttonCounter++;
 		}
-		
-		//Box buttonPanel = Box.createVerticalBox();
-		/*
-		JButton testButton1 = new JButton("Test1");
-		//testButton1.setBounds(500, 15, 89, 23);
-		buttonPanel.add(testButton1);
-		
-		JButton testButton2 = new JButton("Test2");
-		//testButton2.setBounds(500, 15, 89, 23);
-		buttonPanel.add(testButton2);
-		
-		JButton testButton3 = new JButton("Test3");
-		//testButton2.setBounds(500, 15, 89, 23);
-		buttonPanel.add(testButton3);*/
+		buttonPanel.setLayout( new GridLayout(buttonCounter, 1) );
 		
 		JScrollPane scrollPane = new JScrollPane(buttonPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setBounds(29, 130, 170, 280);
-		//scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		//scrollPane.add(buttonPanel);
 		frmTasks.add(scrollPane);
 		
 		frmTasks.invalidate();

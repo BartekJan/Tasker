@@ -92,10 +92,6 @@ public class TaskManLogin{
 				if(lblMessage.getText() == "Valid email and password") {
 					runMainWindow();
 				}
-				//JOptionPane.showMessageDialog(null, "Username and password is correct");
-//				frmTaskmanLogin.dispose();
-//				TaskManTasks tasks= new TaskManTasks();
-//				tasks.setVisible(true);
 			}
 		});
 		btnLogIn.setBounds(322, 158, 118, 39);
