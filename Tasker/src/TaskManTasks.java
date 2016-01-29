@@ -11,9 +11,11 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Set;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JEditorPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -27,20 +29,25 @@ import javax.swing.SwingUtilities;
 public class TaskManTasks implements ActionListener{
 
 	
+	private String taskName = "";
 	private String memberEmail = "";
+	private String memberName = "";
 	boolean logoutVal = false;
 	private boolean running = false;
 	
 	private JFrame frmTasks = new JFrame();
 	Actions action = new Actions();
 	private Tasker tasker;
+	boolean cbAutoChange = false;
 	
 	
-	JLabel lblstartdate = new JLabel("startdate");
-	JLabel lblenddate = new JLabel("enddate");
-	JLabel lblStatus = new JLabel("Status");
-	JEditorPane taskContent = new JEditorPane();
-	JEditorPane editorPane = new JEditorPane();
+	private JComboBox cbStatus = new JComboBox();
+	private JButton commentButton = new JButton("Add New Comment");
+	private JLabel lblstartdate = new JLabel("startdate");
+	private JLabel lblenddate = new JLabel("enddate");
+	private JLabel lblStatus = new JLabel("Status");
+	private JEditorPane taskContent = new JEditorPane();
+	private JEditorPane editorPane = new JEditorPane();
 	
 
 	/**
@@ -54,9 +61,9 @@ public class TaskManTasks implements ActionListener{
 	/**
 	 * @wbp.parser.entryPoint
 	 */
-	public void paintWindow(String email) {
+	public void paintWindow(String name) {
 		running = true;
-		memberEmail = email;
+		memberName = name;
 		initialize();
 		this.frmTasks.setVisible(true);
 	}
@@ -68,6 +75,7 @@ public class TaskManTasks implements ActionListener{
 	private void initialize() {
 		frmTasks.setTitle("Tasks");
 		frmTasks.setBounds(100, 100, 740, 500);
+		frmTasks.setResizable(false);
 		frmTasks.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmTasks.getContentPane().setLayout(null);
 		
@@ -77,7 +85,7 @@ public class TaskManTasks implements ActionListener{
 		userPic.setBounds(29, 30, 72, 72);
 		frmTasks.getContentPane().add(userPic);
 		
-		JLabel userName = new JLabel(memberEmail);
+		JLabel userName = new JLabel(memberName);
 		userName.setBounds(136, 26, 149, 23);
 		frmTasks.getContentPane().add(userName);
 		
@@ -85,10 +93,6 @@ public class TaskManTasks implements ActionListener{
 		taskList.setBorder(new LineBorder(new Color(0, 0, 0)));
 		taskList.setBounds(136, 338, -109, -192);
 		frmTasks.getContentPane().add(taskList);
-		
-		JButton updateButton = new JButton("Update");
-		updateButton.setBounds(500, 15, 89, 23);
-		frmTasks.getContentPane().add(updateButton);
 		
 		JButton logoutButton = new JButton("Log out");
 		logoutButton.addActionListener(new ActionListener() {
@@ -129,14 +133,19 @@ public class TaskManTasks implements ActionListener{
 		lblTaskContent.setBounds(200, 60, 100, 14);
 		frmTasks.getContentPane().add(lblTaskContent);
 		
-		JButton commentButton = new JButton("Add comment");
 		commentButton.setBounds(270, 400, 150, 23);
 		commentButton.addActionListener(this);
 		frmTasks.getContentPane().add(commentButton);
 		
 		lblStatus.setBounds(600, 80, 72, 14);
-		frmTasks.getContentPane().add(lblStatus);
+		//frmTasks.getContentPane().add(lblStatus);
 		
+		cbStatus.setBounds(600, 80, 75, 16);
+		cbStatus.addItem("Allocated");
+		cbStatus.addItem("Abandoned");
+		cbStatus.addItem("Completed");
+		cbStatus.addActionListener(this);
+		frmTasks.getContentPane().add(cbStatus);
 	}
 
 	public void setVisible(boolean b) {
@@ -163,6 +172,11 @@ public class TaskManTasks implements ActionListener{
 	
 	public boolean getRunning() {
 		return running;
+	}
+	
+	private void setStatus(String s) {
+		cbAutoChange = true;
+		cbStatus.setSelectedItem(s);
 	}
 	
 	public void setTaskTitles(String[] titles) {
@@ -209,19 +223,28 @@ public class TaskManTasks implements ActionListener{
 	}
 	
 	private void updateTask(ActionEvent e) {
+		taskName = e.getActionCommand();
 		action.getTaskInfo(e.getActionCommand());
 		
+		setStatus(action.getStatus());
 		lblstartdate.setText(action.getStartDate());
 		lblenddate.setText(action.getEndDate());
-		lblStatus.setText(action.getStatus());
+		//lblStatus.setText(action.getStatus());
 		taskContent.setText(action.getElement());
 		editorPane.setText(action.getComments());
 	}
 	
 	private void newComment() {
 		
-		editorPane.setText("");
+		commentButton.setText("Save Comment");
 		editorPane.setEditable(true);
+		editorPane.setText("Type here..");
+	}
+	
+	private void saveComment() {
+		action.saveComment(taskName, memberEmail, editorPane.getText());
+		commentButton.setText("Add New Comment");
+		editorPane.setEditable(false);
 	}
 	
 	private void runLogin() {
@@ -238,12 +261,33 @@ public class TaskManTasks implements ActionListener{
 		lblStatus.setText("status");
 		taskContent.setText("");
 		editorPane.setText("");
+		taskName = "";
+	}
+	
+	public void setMemberEmail(String email) {
+		memberEmail = email;
+	}
+	
+	private void changedStatus() {
+		action.changeStatus(taskName, cbStatus.getSelectedIndex());
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getActionCommand() == "Add comment") 
+		if(e.getActionCommand() == "Add New Comment" && taskName != "")
 			newComment();
+		else if (e.getActionCommand() == "Add New Comment" && taskName == "")
+			return;
+		else if (e.getActionCommand() == "Save Comment")
+			saveComment();
+		else if (e.getActionCommand() == "comboBoxChanged" && cbAutoChange) {
+			cbAutoChange = false;
+			return;
+		}
+		else if (e.getActionCommand() == "comboBoxChanged" && taskName != "")
+			changedStatus();
+		else if (e.getActionCommand() == "comboBoxChanged" && taskName == "")
+			return;
 		else
 			updateTask(e);
 	}

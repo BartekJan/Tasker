@@ -92,7 +92,6 @@ public class DatabaseManager {
 			closeConnection(c, stmt);
 			return false;
 		}
-		
 	}
 	
 	public String getName(String memberEmail) {
@@ -278,6 +277,91 @@ public class DatabaseManager {
 		}
 
 		return memberName;
+	}
+	
+	public void saveComment(String taskName, String memberEmail, String comment) {
+		Connection c = connect();
+		// Find member ID
+		
+		int memberID = 0;
+		Statement stmt = null;
+		
+		try {
+			stmt = c.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT id FROM members WHERE email='" + memberEmail + "'");
+			while (rs.next()) {
+				memberID = rs.getInt("id");
+			}
+			
+		} catch (SQLException e) {
+			closeConnection(c, stmt);
+			e.printStackTrace();
+		}
+		
+		
+		// Find task ID
+		
+		int taskID = 0;
+		stmt = null;
+		
+		try {
+			stmt = c.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT id FROM tasks WHERE title='" + taskName + "'");
+			while (rs.next()) {
+				taskID = rs.getInt("id");
+			}
+			
+		} catch (SQLException e) {
+			closeConnection(c, stmt);
+			e.printStackTrace();
+		}
+		
+		int commentID = 0;
+		stmt = null;
+		
+		try {
+			stmt = c.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT id FROM taskelementcomments");
+			while (rs.next()) {
+				commentID = rs.getInt("id");
+			}
+			
+		} catch (SQLException e) {
+			closeConnection(c, stmt);
+			e.printStackTrace();
+		}
+		commentID++;
+		// Insert comment
+		stmt = null;
+		
+		try {
+			stmt = c.createStatement();
+			String sql = "INSERT INTO taskelementcomments " + "VALUES ( "+ commentID +", " + memberID + "," + taskID + ",'" + comment + "')";
+			stmt.executeUpdate(sql);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			closeConnection(c, stmt);
+		}
+		
+		closeConnection(c, stmt);
+	}
+	
+	public void changeStatus(String taskName, int status) {
+		Connection c = connect();
+		Statement stmt = null;
+		
+		try {
+			stmt = c.createStatement();
+			String sql = "UPDATE tasks SET status="+ status +" WHERE title='"+ taskName +"'";
+			stmt.executeUpdate(sql);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			closeConnection(c, stmt);
+		}
+		
+		closeConnection(c, stmt);
 	}
 	
 	public String getAllMembers() {

@@ -79,6 +79,7 @@ public class TaskManLogin{
 		frmTaskmanLogin = new JFrame();
 		frmTaskmanLogin.setTitle("TaskMAN - Login");
 		frmTaskmanLogin.setBounds(100, 100, 508, 263);
+		frmTaskmanLogin.setResizable(false);
 		frmTaskmanLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmTaskmanLogin.getContentPane().setLayout(null);
 		btnLogIn.addActionListener(new ActionListener() {
@@ -249,6 +250,7 @@ public class TaskManLogin{
 	
 	public void runMainWindow () {
 		
+		mainWindow.setMemberEmail(memberEmail);
 		mainWindow.paintWindow(action.getName(memberEmail));
 		mainWindow.setTaskTitles(action.getAllUserTaskTitles());
 		
