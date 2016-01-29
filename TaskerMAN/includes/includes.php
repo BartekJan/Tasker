@@ -1,5 +1,6 @@
 <?php
+require_once "db.php";
 session_save_path("/tmp");
 session_start();
-$db = pg_connect('dbname=cs27020_15_16 port=5432 host=db.dcs.aber.ac.uk user=nep5 password=groupXYZ');
+$db = pg_connect('dbname='.DB_NAME.' port='.DB_PORT.' host='.DB_SERVER.' user='.DB_USER.' password='.DB_PASS);
 ?>

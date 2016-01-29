@@ -143,7 +143,6 @@ public class TaskManTasks implements ActionListener{
 		frmTasks.getContentPane().add(commentButton);
 		
 		lblStatus.setBounds(600, 80, 72, 14);
-		//frmTasks.getContentPane().add(lblStatus);
 		
 		cbStatus.setBounds(600, 80, 75, 16);
 		cbStatus.addItem("Allocated");

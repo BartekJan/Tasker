@@ -1,0 +1,254 @@
+.mid {
+   float: left;
+   width: 39.125%;
+   margin: 1%;
+   border: 0px solid black;
+}   
+.right {
+   float: right;
+   width: 39.125%;
+   margin: 1%;
+   border: 0px solid black;
+}  
+body {
+	width: 90%;
+	margin: 0 auto;
+	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, sans-serif;
+	color: black;
+}
+	
+h1 {
+	color:black;
+	background-color: #7ACCC8;
+	padding: 10px;
+} 
+p {
+   float: left;
+   width: 15.65%;
+   margin: 1%;
+   margin-right: 0%;
+   border: 0px solid black;
+}  
+a:link, a:visited {
+    background-color: #efefef;
+	margin-left:12%;
+    padding: 14px 25px;
+	width:50%;
+    text-align: center;	
+    text-decoration: none;
+    display: inline-block;
+	font-weight: bold;
+	color:black;
+}
+
+
+a:hover, a:active {
+    background-color: #7ACCC8;
+}
+
+a.currentLink:link,a.currentLink:visited{
+   background-color: #57b6b1 !important;
+}
+
+a.currentLink:hover,a.currentLink:active{
+     background-color: #7ACCC8 !important;
+}
+
+input.logoutLink {
+    background-color: #efefef;
+    margin-left:26%;
+    padding: 17px 4px;
+    width:43%;
+    text-align: center;	
+    text-decoration: none;
+    display: inline-block;
+    font-weight: bold;
+    color:black;
+    border: none;
+}
+
+input.logoutLink:hover,input.logoutLink:active{
+    background-color: #baffd8;
+}
+
+input.addField{
+    background-color: #efefef;
+    padding: 17px 10px;
+    width:30%;
+    text-align: center;	
+    text-decoration: none;
+    display: inline-block;
+    font-weight: bold;
+    color:black;
+    border: none;
+}
+
+
+input.addField:hover,input.addField:active{
+    background-color: #baffd8;
+}
+
+input.addLink{
+    background-color: #efefef;
+    margin-right: 48px;
+    padding: 17px 10px;
+    width:13%;
+    text-align: center;	
+    text-decoration: none;
+    display: inline-block;
+    font-weight: bold;
+    color:black;
+    border: none;
+}
+
+
+input.addLink:hover,input.addLink:active{
+    background-color: #baffd8;
+}
+
+input.editField{
+    background-color: #efefef;
+    margin-right: 54px;
+    padding: 17px 10px;
+    width:100%;
+    text-align: center;	
+    text-decoration: none;
+    display: inline-block;
+    font-weight: bold;
+    color:black;
+    border: none;
+}
+
+
+input.editField:hover,input.editField:active{
+    background-color: #baffd8;
+}
+
+table.members {
+font-size:22px;
+width:200px;
+color: black;
+}
+
+td {
+max-width: 370px;
+overflow: hidden;
+}
+tbody tr:hover {
+background: #7ACCC8;
+}
+
+td:hover {
+background: #7ACCC8;
+}
+
+td.shine {
+background: #7ACCC8;
+}
+
+tbody tr.shine {
+background: #7ACCC8;
+}
+
+input.shine {
+    background-color: #7ACCC8;
+    margin-right: 54px;
+    padding: 17px 10px;
+    width:100%;
+    text-align: center;	
+    text-decoration: none;
+    display: inline-block;
+    font-weight: bold;
+    color:black;
+    border: none;
+}
+
+input.shine:hover,input.shine:active {
+ background-color: #baffd8;
+}
+
+input.editLink{
+    background-color: #efefef;
+    margin-right: 30px;
+    padding: 17px 10px;
+    width:20%;
+    text-align: center;	
+    text-decoration: none;
+    display: inline-block;
+    font-weight: bold;
+    color:black;
+    border: none;
+}
+
+
+input.editLink:hover,input.editLink:active{
+    background-color: #baffd8;
+}
+
+input.deleteMem{
+    background-color: #efefef;
+    margin-right: 26px;
+    padding: 17px 10px;
+    width:20%;
+    text-align: center;	
+    text-decoration: none;
+    display: inline-block;
+    font-weight: bold;
+    color:black;
+    border: none;
+}
+
+
+input.deleteMem:hover,input.deleteMem:active{
+    background-color: #e36672;
+}
+
+div.msg {
+float:right;
+width:35%;
+}
+
+input.page{
+    background-color: #efefef;
+    margin-left: 90px;
+    padding: 17px 10px;
+    width:60%;
+    text-align: center;	
+    text-decoration: none;
+    display: inline-block;
+    font-weight: bold;
+    color:black;
+    border: none;
+}
+
+
+input.page:hover,input.page:active{
+    background-color: #baffd8;
+}
+
+
+input.search{
+  background-color: #efefef;
+    margin-right: 55px;
+    padding: 17px 10px;
+    width:20%;
+    text-align: center;	
+    text-decoration: none;
+    display: inline-block;
+    font-weight: bold;
+    color:black;
+    border: none;
+}
+
+input.search:hover,input.search:active{
+    background-color: #baffd8;
+}
+
+.center{
+text-align: center;
+}
+
+form.cancerousforms{
+	display: inline-block;
+	text-align: center;
+}

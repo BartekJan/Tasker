@@ -1,0 +1,42 @@
+body {
+	width: 90%;
+	margin: 0 auto;
+	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, sans-serif;
+	color: black;
+}	
+h1 {
+	background-color: #7ACCC8;
+	padding: 10px;
+} 
+.About {
+	margin-left: 400px;	
+}
+p {
+	margin-left: 400px;
+}
+.signF {
+	float: left;
+	width: 300px;
+	margin: 1%;
+	margin-right: 0%;
+}
+input.link {
+	background-color: #efefef;
+	color: white;
+	padding: 17px 4px;
+	width:43%;
+	margin-left: 7%;
+	text-align: center;	
+	text-decoration: none;
+	display: inline-block;
+	font-weight: bold;
+	color:black;
+	border: none;
+}
+input.link:hover,input.logoutLink:active{
+	background-color: #baffd8;
+}
+
+div.instruct{
+font-weight:bold;
+}

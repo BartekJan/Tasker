@@ -26,7 +26,10 @@ public class dbInfo {
 	private JLabel lblPort;
 	private JLabel lblDBname;
 	
-	
+	/**
+	 * Creates a new window
+	 * for adding a new database
+	 */
 	public void paintWindow() {
 		frmInfo = new JFrame();
 		frmInfo.setTitle("TaskMAN - Login");
@@ -78,7 +81,7 @@ public class dbInfo {
 		btnOK = new JButton("ok");
 		btnOK.setBounds(94, 275, 120, 23);
 		btnOK.addActionListener(new ActionListener() {
-			
+			// Pressed OK. Passes all the information over to action class
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				action.setNewDatabase(txtURL.getText(), txtUser.getText(), txtPassword.getText(), txtPort.getText(), txtDBname.getText());

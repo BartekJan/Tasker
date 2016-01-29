@@ -16,13 +16,24 @@ public class DatabaseManager {
 	String PASS = "groupXYZ";
 	int memberID = 0;
 
-	
+	/**
+	 * Links to a new database
+	 * @param url
+	 * @param user
+	 * @param password
+	 * @param port
+	 * @param databaseName
+	 */
 	public void setNewDatabase(String url, String user, String password, String port, String databaseName) {
 		URL = "jdbc:postgresql://" + url + ":" + port + "/" + databaseName;
 		USER = user;
 		PASS = password;
 	}
 
+	/**
+	 * Connects to the database
+	 * @return the connection (Connection c)
+	 */
 	private Connection connect() {
 		Connection c = null;
 		try {
@@ -153,7 +164,11 @@ public class DatabaseManager {
 		
         return taskIDs;
 	}
-	
+	/**
+	 * Returns a string array
+	 * of all the titles of the tasks
+	 * @return string array
+	 */
 	public String[] getAllUserTaskTitles() {
 		String[] taskTitles = new String[500];
 		Connection c = connect();
@@ -191,6 +206,12 @@ public class DatabaseManager {
 		return taskTitles;
 	}
 	
+	/**
+	 * Returns an array of Strings
+	 * with 5 elements containing the information of the task
+	 * @param taskTitle
+	 * @return String array (5 elements)
+	 */
 	public String[] getAllTaskInfo(String taskTitle) {
 		
 		String[] allInfo = new String[5];
@@ -260,7 +281,12 @@ public class DatabaseManager {
         return allInfo;
 		
 	}
-	
+	/**
+	 * Returns a name based on the id
+	 * @param c
+	 * @param elementMemberID
+	 * @return String full name
+	 */
 	private String getUsername(Connection c, int elementMemberID) {
 		String memberName = "";
 		Statement stmt = null;
@@ -282,6 +308,13 @@ public class DatabaseManager {
 		return memberName;
 	}
 	
+	/**
+	 * Finds the correct id and
+	 * saves the comment
+	 * @param taskName
+	 * @param memberEmail
+	 * @param comment
+	 */
 	public void saveComment(String taskName, String memberEmail, String comment) {
 		Connection c = connect();
 		// Find member ID
@@ -366,7 +399,11 @@ public class DatabaseManager {
 		
 		closeConnection(c, stmt);
 	}
-	
+	/**
+	 * Changes the status of a task in the database
+	 * @param taskName
+	 * @param status
+	 */
 	public void changeStatus(String taskName, int status) {
 		Connection c = connect();
 		Statement stmt = null;
@@ -382,78 +419,5 @@ public class DatabaseManager {
 		}
 		
 		closeConnection(c, stmt);
-	}
-	
-	public String getAllMembers() {
-		
-		String table = "members";
-		Connection c = connect();
-		Statement stmt = null;
-		String tableContent = "";
-		
-		try {
-			stmt = c.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM " + table);
-			
-			while (rs.next()) {
-				tableContent += rs.getInt("id");
-	            tableContent += "\t\t";
-	            tableContent += rs.getString("email");
-	            tableContent += "\t\t";
-	            tableContent += rs.getString("firstname");
-	            tableContent += "\t\t";
-	            tableContent += rs.getString("surname");
-	            tableContent += "\t\t";
-	            tableContent += rs.getString("password");
-	            tableContent += "\n";
-	         }
-			
-		} catch (SQLException e) {
-			closeConnection(c, stmt);
-			e.printStackTrace();
-			return "Could not get content from " + table;
-		}
-		
-		closeConnection(c, stmt);
-        return tableContent;
-	}
-	
-	public String testGetContent() {
-		String table = "test";
-		Connection c = connect();
-		
-		Statement stmt;
-		try {
-			stmt = c.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM " + table);
-			
-			while (rs.next()) {
-	            int id = rs.getInt("id");
-	            String testtext = rs.getString("testtext");
-	            return(id + "\t" +testtext);
-	         }
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return "Could not get content from " + table;
-		}
-		
-        return "Could not get content from " + table;
-	}
-	
-	public String testConnection() {
-		Connection c = null;
-		try {
-	    	  
-	         Class.forName("org.postgresql.Driver");
-	         c = DriverManager.getConnection(URL,USER, PASS);
-	         
-	      } catch (Exception e) {
-	    	  
-	         //e.printStackTrace();
-	         return (e.getClass().getName()+": "+e.getMessage());
-	         
-	      }
-		return "Connection successfull";
 	}
 }
