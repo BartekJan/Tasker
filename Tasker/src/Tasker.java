@@ -27,10 +27,11 @@ public class Tasker {
 			if(!mainWindow.getRunning() && !loginWindow.getRunning())
 				runLogin();
 			if (loginWindow.getLoginOK() && !mainWindow.getRunning()) {
+				runMainWindow();
 				loginWindow.exitWindow();
 				memberEmail = loginWindow.getEmail();
 				memberName = db.getName(memberEmail);
-				runMainWindow();
+				//runMainWindow(); 
 				loginWindow.setLoginOK(false);
 			}
 		}
