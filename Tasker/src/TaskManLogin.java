@@ -26,6 +26,7 @@ import java.security.PublicKey;
 
 public class TaskManLogin{
 
+	private Actions action = new Actions();
 	private JFrame frmTaskmanLogin;
 	private final JButton btnLogIn = new JButton("Login");
 	private JPasswordField txtPassword;
@@ -38,6 +39,8 @@ public class TaskManLogin{
 	private String memberEmail = "";
 	private String memberPass = "";
 	private boolean rememberMe = false;
+	private boolean loginOK = false;
+	private boolean running = false;
 
 	/**
 	 * Launch the application.
@@ -64,6 +67,7 @@ public class TaskManLogin{
 	}
 	
 	public void paintWindow() {
+		running = true;
 		initialize();
 		this.frmTaskmanLogin.setVisible(true);
 	}
@@ -81,8 +85,12 @@ public class TaskManLogin{
 			public void actionPerformed(ActionEvent arg0) {
 				memberEmail = txtEmail.getText();
 				memberPass = txtPassword.getText();
+				lblMessage.setText(action.loginTest(memberEmail, memberPass));
 				txtEmail.setText("");
 				txtPassword.setText("");
+				if(lblMessage.getText() == "Valid email and password") {
+					loginOK = true;
+				}
 				//JOptionPane.showMessageDialog(null, "Username and password is correct");
 //				frmTaskmanLogin.dispose();
 //				TaskManTasks tasks= new TaskManTasks();
@@ -230,7 +238,20 @@ public class TaskManLogin{
 		lblMessage.setText(message);
 	}
 	
+	public boolean getLoginOK() {
+		return loginOK;
+	}
+	
+	public void setLoginOK(boolean login) {
+		loginOK = login;
+	}
+	
+	public boolean getRunning() {
+		return running;
+	}
+	
 	public void exitWindow() {
+		running = false;
 		frmTaskmanLogin.dispose();
 	}
 	

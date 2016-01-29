@@ -29,6 +29,7 @@ public class TaskManTasks implements ActionListener{
 	
 	private String memberEmail = "";
 	boolean logoutVal = false;
+	private boolean running = false;
 	
 	private JFrame frmTasks = new JFrame();;
 
@@ -60,6 +61,7 @@ public class TaskManTasks implements ActionListener{
 	 * @wbp.parser.entryPoint
 	 */
 	public void paintWindow(String email) {
+		running = true;
 		memberEmail = email;
 		initialize();
 		this.frmTasks.setVisible(true);
@@ -99,7 +101,8 @@ public class TaskManTasks implements ActionListener{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				logoutVal = true;
+				exitWindow();
+//				logoutVal = true;
 			}
 		});
 		logoutButton.setBounds(600, 15, 89, 23);
@@ -117,11 +120,11 @@ public class TaskManTasks implements ActionListener{
 		
 		
 		JLabel lblstartdate = new JLabel("startdate:");
-		lblstartdate.setBounds(600, 500, 100, 14);
+		lblstartdate.setBounds(590, 400, 100, 14);
 		frmTasks.getContentPane().add(lblstartdate);
 		
 		JLabel lblenddate = new JLabel("enddate:");
-		lblenddate.setBounds(600, 520, 100, 14);
+		lblenddate.setBounds(590, 420, 100, 14);
 		frmTasks.getContentPane().add(lblenddate);
 		
 		JTextArea taskContent = new JTextArea();
@@ -164,15 +167,20 @@ public class TaskManTasks implements ActionListener{
 	 * the logout button
 	 * @return true or false
 	 */
-	public boolean getLogOut() {
-		return logoutVal;
-	}
+//	public boolean getLogOut() {
+//		return logoutVal;
+//	}
 	
 	/**
 	 * Closes the window
 	 */
 	public void exitWindow() {
+		running = false;
 		frmTasks.dispose();
+	}
+	
+	public boolean getRunning() {
+		return running;
 	}
 	
 	public void setTaskTitles(String[] titles) {

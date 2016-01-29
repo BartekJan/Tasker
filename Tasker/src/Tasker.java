@@ -6,8 +6,8 @@ import org.postgresql.ssl.DbKeyStoreSocketFactory.DbKeyStoreSocketException;
 public class Tasker {
 	
 	DatabaseManager db = new DatabaseManager();
-	TaskManLogin loginWindow;
-	TaskManTasks mainWindow;
+	TaskManLogin loginWindow = new TaskManLogin();;
+	TaskManTasks mainWindow = new TaskManTasks();;
 	
 	private String memberEmail = "";
 	private String memberPass = "";
@@ -24,65 +24,68 @@ public class Tasker {
 		testConnection();
 		
 		while(true) {
-			runLogin();
-			memberName = db.getName(memberEmail);
-			runMainWindow();
+			if(!mainWindow.getRunning() && !loginWindow.getRunning())
+				runLogin();
+			if (loginWindow.getLoginOK() && !mainWindow.getRunning()) {
+				loginWindow.exitWindow();
+				memberEmail = loginWindow.getEmail();
+				memberName = db.getName(memberEmail);
+				runMainWindow();
+				loginWindow.setLoginOK(false);
+			}
 		}
 	}
 	
 	public void runLogin() {
 		
-		loginWindow = new TaskManLogin();
-		
 		loginWindow.paintWindow();
 		
-		boolean loingCorrect = false;
-		String test = "";
+		//boolean loingCorrect = false;
+		//String test = "";
 		
 		 // Wait for login
-		while (!loingCorrect) {
-			if (!loginWindow.getEmail().equals("")) {
-			
-				if (checkEmail(loginWindow.getEmail())) {
-					if (db.loginDetails(loginWindow.getEmail(), loginWindow.getPassword())) {
-						// Valid email and password. User is now logged in
-						loingCorrect = true;
-						memberEmail = loginWindow.getEmail();
-						memberPass = loginWindow.getPassword();
-						loginWindow.setMessage("Valid email and password");
-						loginWindow.exitWindow();
-					}
-					else {
-						loginWindow.setMessage("Wrong email or password");
-					}
-				}
-				else {
-					// print error
-					loginWindow.setMessage("Please enter a valid email address");
-				}
-				loginWindow.setEmail("");
-				loginWindow.setPassword("");
-			
-			}
-		}
+//		while (!loingCorrect) {
+//			if (!loginWindow.getEmail().equals("")) {
+//			
+//				if (checkEmail(loginWindow.getEmail())) {
+//					if (db.loginDetails(loginWindow.getEmail(), loginWindow.getPassword())) {
+//						// Valid email and password. User is now logged in
+//						loingCorrect = true;
+//						memberEmail = loginWindow.getEmail();
+//						memberPass = loginWindow.getPassword();
+//						loginWindow.setMessage("Valid email and password");
+//						loginWindow.exitWindow();
+//					}
+//					else {
+//						loginWindow.setMessage("Wrong email or password");
+//					}
+//				}
+//				else {
+//					// print error
+//					loginWindow.setMessage("Please enter a valid email address");
+//				}
+//				loginWindow.setEmail("");
+//				loginWindow.setPassword("");
+//			
+//			}
+//		}
 	}
 
 	
 	public void runMainWindow () {
-		mainWindow = new TaskManTasks();
 		
 		mainWindow.paintWindow(memberName);
 		
 		mainWindow.setTaskTitles(db.getAllUserTaskTitles());
 		
-		boolean done = false;
-		
-		while(!done) {
-			if (mainWindow.getLogOut()) {
-				mainWindow.exitWindow();
-				done = true;
-			}
-		}
+//		boolean done = false;
+//		
+//		while(!done) {
+//			if (mainWindow.getLogOut()) {
+//				mainWindow.exitWindow();
+//				done = true;
+//			}
+//		}
 	}
 	
 	
