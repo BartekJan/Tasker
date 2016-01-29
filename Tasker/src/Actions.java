@@ -78,4 +78,12 @@ public class Actions {
 	public void runLogin(Tasker taskObject) {
 		taskObject.runLogin();
 	}
+	
+	public void saveComment(String taskName, String memberEmail, String comment) {
+		db.saveComment(taskName, memberEmail, comment);
+	}
+	
+	public void changeStatus(String taskName, int status) {
+		db.changeStatus(taskName, status+1);
+	}
 }

@@ -209,11 +209,7 @@ public class TaskManLogin{
 		UserPicture.setBounds(217, 25, 72, 72);
 		frmTaskmanLogin.getContentPane().add(UserPicture);
 	}
-	//for test only SE_F_029 (incorrect email address)
-	public String emailTest(){
-		lblMessage.setText(action.loginTest(memberEmail, memberPass));
-		return lblMessage.getText();
-	}
+	public 
 	
 	public String getEmail() {
 		return memberEmail;
