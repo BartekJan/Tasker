@@ -73,6 +73,8 @@ public class Tasker {
 		
 		mainWindow.paintWindow(memberName);
 		
+		mainWindow.setTaskTitles(db.getAllUserTaskTitles());
+		
 		boolean done = false;
 		
 		while(!done) {

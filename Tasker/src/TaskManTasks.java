@@ -10,6 +10,7 @@ import javax.swing.border.LineBorder;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -20,15 +21,16 @@ import javax.swing.SwingConstants;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.SwingUtilities;
 
 
-public class TaskManTasks {
+public class TaskManTasks implements ActionListener{
 
 	
 	private String memberEmail = "";
 	boolean logoutVal = false;
 	
-	private JFrame frmTasks;
+	private JFrame frmTasks = new JFrame();;
 
 	/**
 	 * Launch the application.
@@ -68,34 +70,10 @@ public class TaskManTasks {
 	 * @wbp.parser.entryPoint
 	 */
 	private void initialize() {
-		frmTasks = new JFrame();
 		frmTasks.setTitle("Tasks");
 		frmTasks.setBounds(100, 100, 740, 500);
 		frmTasks.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmTasks.getContentPane().setLayout(null);
-		
-		JPanel buttonPanel = new JPanel();
-		buttonPanel.setLayout( new GridLayout(3,1) );
-		
-		//Box buttonPanel = Box.createVerticalBox();
-		
-		JButton testButton1 = new JButton("Test1");
-		//testButton1.setBounds(500, 15, 89, 23);
-		buttonPanel.add(testButton1, buttonPanel);
-		
-		JButton testButton2 = new JButton("Test2");
-		//testButton2.setBounds(500, 15, 89, 23);
-		buttonPanel.add(testButton2);
-		
-		JButton testButton3 = new JButton("Test3");
-		//testButton2.setBounds(500, 15, 89, 23);
-		buttonPanel.add(testButton3);
-		
-		JScrollPane scrollPane = new JScrollPane(buttonPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane.setBounds(29, 130, 140, 280);
-		//scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		//scrollPane.add(buttonPanel);
-		frmTasks.add(scrollPane);
 		
 		JLabel userPic = new JLabel("User pic");
 		Image defaultUserPic= new ImageIcon(this.getClass().getResource("/DefaultUser2.png")).getImage();
@@ -136,6 +114,16 @@ public class TaskManTasks {
 		progressBar.setBounds(250, 440, 149, 23);
 		frmTasks.getContentPane().add(progressBar);
 */		
+		
+		
+		JLabel lblstartdate = new JLabel("startdate:");
+		lblstartdate.setBounds(600, 500, 100, 14);
+		frmTasks.getContentPane().add(lblstartdate);
+		
+		JLabel lblenddate = new JLabel("enddate:");
+		lblenddate.setBounds(600, 520, 100, 14);
+		frmTasks.getContentPane().add(lblenddate);
+		
 		JTextArea taskContent = new JTextArea();
 		taskContent.setBounds(200, 240, 300, 150);
 		frmTasks.getContentPane().add(taskContent);
@@ -160,24 +148,11 @@ public class TaskManTasks {
 		frmTasks.getContentPane().add(commentButton);
 		
 		JLabel lblUsername = new JLabel("Status");
-		//lblUsername.setHorizontalAlignment(SwingConstants.CENTER);
+		//lblUsername.setHorizontalAliegnment(SwingConstants.CENTER);
 		lblUsername.setBounds(600, 80, 72, 14);
 		frmTasks.getContentPane().add(lblUsername);
 		
-//pop up window appears with input area
-/*		commentButton.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        commentArea.setVisible(true);
-		    }
-		}    
-
-		 commentButton.addActionListener(new java.awt.event.ActionListener() {
-	            @Override
-	            public void actionPerformed(java.awt.event.ActionEvent evt) {
-	                String name = JOptionPane.showInputDialog(frmTasks, "Enter your comment", null);
-	            }
-	     });
-*/	}
+	}
 
 	public void setVisible(boolean b) {
 		// TODO Auto-generated method stub
@@ -198,6 +173,55 @@ public class TaskManTasks {
 	 */
 	public void exitWindow() {
 		frmTasks.dispose();
+	}
+	
+	public void setTaskTitles(String[] titles) {
+		
+		ArrayList<JButton> buttonList = new ArrayList<JButton>();
+		
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.setLayout( new GridLayout(3,1) );
+		
+		for (String t : titles) {
+			if (t == null)
+				break;
+			buttonList.add(new JButton(t));
+			//buttonPanel.add(new JButton(t));
+		}
+		for (JButton b : buttonList) {
+			b.addActionListener(this);
+			buttonPanel.add(b);
+		}
+		
+		//Box buttonPanel = Box.createVerticalBox();
+		/*
+		JButton testButton1 = new JButton("Test1");
+		//testButton1.setBounds(500, 15, 89, 23);
+		buttonPanel.add(testButton1);
+		
+		JButton testButton2 = new JButton("Test2");
+		//testButton2.setBounds(500, 15, 89, 23);
+		buttonPanel.add(testButton2);
+		
+		JButton testButton3 = new JButton("Test3");
+		//testButton2.setBounds(500, 15, 89, 23);
+		buttonPanel.add(testButton3);*/
+		
+		JScrollPane scrollPane = new JScrollPane(buttonPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setBounds(29, 130, 170, 280);
+		//scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		//scrollPane.add(buttonPanel);
+		frmTasks.add(scrollPane);
+		
+		frmTasks.invalidate();
+		frmTasks.validate();
+		frmTasks.repaint();
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+		
 	}
 	
 }

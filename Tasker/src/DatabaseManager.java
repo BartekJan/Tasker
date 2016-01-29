@@ -14,6 +14,7 @@ public class DatabaseManager {
 	String URL = "jdbc:postgresql://db.dcs.aber.ac.uk:5432/cs27020_15_16";
 	String USER = "nep5";
 	String PASS = "groupXYZ";
+	int memberID = 0;
 
 
 	private Connection connect() {
@@ -97,14 +98,15 @@ public class DatabaseManager {
 	public String getName(String memberEmail) {
 		Connection c = connect();
 		Statement stmt = null;
-		String tableContent = "";
+		String tableContent = "";		
 		
 		
 		try {
 			stmt = c.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT firstname, surname FROM members WHERE email='" + memberEmail + "'");
+			ResultSet rs = stmt.executeQuery("SELECT id, firstname, surname FROM members WHERE email='" + memberEmail + "'");
 			
 			while (rs.next()) {
+				memberID = rs.getInt("id");
 				tableContent = rs.getString("firstname");
 				tableContent += " ";
 				tableContent += rs.getString("surname");
@@ -119,6 +121,111 @@ public class DatabaseManager {
 		closeConnection(c, stmt);
 		
 		return tableContent;
+	}
+	
+	private int[] getAllTasksID(Connection c) {
+		int[] taskIDs = new int[500];
+		Statement stmt = null;
+		String tableContent = "";
+		
+		try {
+			stmt = c.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT task_id FROM taskmembers WHERE member_id=" + memberID);
+			
+			int idCounter = 0;
+			while (rs.next()) {
+				
+				taskIDs[idCounter] = rs.getInt("task_id");
+				
+				idCounter++;
+	         }
+			
+		} catch (SQLException e) {
+			closeConnection(c, stmt);
+			e.printStackTrace();
+		}
+		
+		
+        return taskIDs;
+	}
+	
+	public String[] getAllUserTaskTitles() {
+		String[] taskTitles = new String[500];
+//		String[] startdates = new String[500];
+//		String[] enddates = new String[500];
+//		String[] statuses = new String[500];
+		Connection c = connect();
+		Statement stmt = null;
+		
+		int[] taskIDs = getAllTasksID(c);
+		int idCounter = 0;
+		for (int i : taskIDs) {
+			
+			if (i == 0)
+				break;
+			
+			try {
+				
+				stmt = c.createStatement();
+				
+				ResultSet rs = stmt.executeQuery("SELECT title FROM tasks WHERE id=" + i);
+				
+				while (rs.next()) {
+					
+					taskTitles[idCounter] = rs.getString("title");
+					
+					idCounter++;
+		         }
+				
+			} catch (SQLException e) {
+				closeConnection(c, stmt);
+				e.printStackTrace();
+			}
+			
+		}
+		
+		closeConnection(c, stmt);
+		
+		return taskTitles;
+	}
+	
+	public void getAllTaskInfo(String taskTitle) {
+
+		String startdate = "";
+		String enddate = "";
+		int status = 0;
+		String statusString = "";
+		
+		Connection c = connect();
+		Statement stmt = null;
+		String tableContent = "";
+		
+		try {
+			stmt = c.createStatement();
+			
+			// Get startdate, enddate and the id of the status
+			ResultSet rs = stmt.executeQuery("SELECT startdate, enddate, status FROM tasks WHERE title='" + taskTitle + "'");
+			
+			while (rs.next()) {
+				startdate = rs.getString("startdate");
+				enddate = rs.getString("enddate");
+				status = rs.getInt("status");
+	         }
+			
+			// Get status from id
+			rs = stmt.executeQuery("SELECT text FROM taskstatuses WHERE id=" + status );
+			while (rs.next()) {
+				statusString = rs.getString("text");
+			}
+			
+		} catch (SQLException e) {
+			closeConnection(c, stmt);
+			e.printStackTrace();
+		}
+		
+		closeConnection(c, stmt);
+        return;
+		
 	}
 	
 	public String getAllMembers() {
