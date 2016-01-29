@@ -129,18 +129,10 @@ public class TaskManTasks implements ActionListener{
 		taskContent.setEditable(false);
 		taskContent.setBounds(200, 80, 300, 150);
 		frmTasks.getContentPane().add(taskContent);
-		//frmTasks.getContentPane().add(taskContent);
-//		JScrollPane taskScrollPane = new JScrollPane(taskContent);
-//		taskScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-//		frmTasks.getContentPane().add(taskScrollPane);
 		
 		editorPane.setEditable(false);
 		editorPane.setBounds(200, 240, 300, 150);
 		frmTasks.getContentPane().add(editorPane);
-		//Enable scroll bar.
-//		JScrollPane editorScrollPane = new JScrollPane(editorPane);
-//		editorScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-//		frmTasks.getContentPane().add(editorScrollPane);
 		
 		JLabel lblTaskContent = new JLabel("Task content:");
 		lblTaskContent.setBounds(200, 60, 100, 14);

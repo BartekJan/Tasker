@@ -319,6 +319,23 @@ public class DatabaseManager {
 			e.printStackTrace();
 		}
 		
+		// Find task ID
+		
+		int taskElementID = 0;
+		stmt = null;
+		
+		try {
+			stmt = c.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT id FROM taskelements WHERE task_id='" + taskID + "'");
+			while (rs.next()) {
+				taskElementID = rs.getInt("id");
+			}
+			
+		} catch (SQLException e) {
+			closeConnection(c, stmt);
+			e.printStackTrace();
+		}
+		
 		int commentID = 0;
 		stmt = null;
 		
@@ -339,7 +356,7 @@ public class DatabaseManager {
 		
 		try {
 			stmt = c.createStatement();
-			String sql = "INSERT INTO taskelementcomments " + "VALUES ( "+ commentID +", " + memberID + "," + taskID + ",'" + comment + "')";
+			String sql = "INSERT INTO taskelementcomments " + "VALUES ( "+ commentID +", " + memberID + "," + taskElementID + ",'" + comment + "')";
 			stmt.executeUpdate(sql);
 			
 		} catch (SQLException e) {

@@ -82,6 +82,7 @@ public class dbInfo {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				action.setNewDatabase(txtURL.getText(), txtUser.getText(), txtPassword.getText(), txtPort.getText(), txtDBname.getText());
+				frmInfo.dispose();
 			}
 		});
 		frmInfo.getContentPane().add(btnOK);
