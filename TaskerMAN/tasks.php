@@ -46,13 +46,11 @@ if (!isset($_SESSION["managerID"])) {
 		if (isset($_POST["deleteTask"])) {
 			$id = $_POST["id"];
 			$delete = pg_query($db, "DELETE FROM tasks WHERE id={$id}");
-			$select = pg_query($db, "SELECT task_id FROM taskelementmembers where task_id={$id}");
-			if($row = pg_fetch_row($select)) $delete = pq_query($db, "DELETE FROM taskelementmembers WHERE task_id={$id}");
-				$select = pg_query($db, "SELECT task_id FROM taskmembers where task_id={$id}");
-			if($row = pg_fetch_row($select)) $delete = pq_query($db, "DELETE FROM taskmembers WHERE task_id={$id}");
-				$select = pg_query($db, "SELECT task_id FROM taskelements where task_id={$id}");
-			if($row = pg_fetch_row($select)) $delete = pq_query($db, "DELETE FROM taskelements WHERE task_id={$id}");
-				$editmsg= "Task deleted";
+			$select = pg_query($db, "SELECT task_id FROM taskmembers where task_id={$id}");
+			if($row = pg_fetch_row($select)) $delete = pg_query($db, "DELETE FROM taskmembers WHERE task_id={$id}");
+			$select = pg_query($db, "SELECT task_id FROM taskelements where task_id={$id}");
+			if($row = pg_fetch_row($select)) $delete = pg_query($db, "DELETE FROM taskelements WHERE task_id={$id}");
+			$editmsg= "Task deleted";
 		}
 	
 	// Code to edit a task
